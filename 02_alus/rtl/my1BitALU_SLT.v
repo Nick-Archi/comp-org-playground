@@ -1,26 +1,17 @@
 /*
-* Update on the my1BitALU component. 
-* Adding capabilities to: 
-* 	- subtract b from a via 2's complement of b
-* 	- a NOR b
+* my1BitALU_SLT
+* 
+* Objective:
+* [] MSB ALU that has overflow and MSB set capabilities
+*
 */
 
-/*
-* in1, 1st input for operations
-* in2, 2nd input for operations
-* carryIn, indicate carry in 
-* ainvert, invert in1 if set
-* binvert, invert in2 if set
-* op, 2 bit input indicating operation selection
-* carryOut, indicate carryOut bit of ADD or SUB operation
-* result, indicate result from operation
-*/
-module my1BitALUv2(in1, in2, carryIn, ainvert, binvert, op, carryOut, result);
+module my1BitALU_SLT(in1, in2, carryIn, ainvert, binvert, less, op, carryOut, result, set, overflow);
 
-	input in1, in2, carryIn, ainvert, binvert;
+	input in1, in2, carryIn, ainvert, binvert, less;
 	input [1:0]op;
-	output carryOut, result;
-	reg carryOut, result;
+	output carryOut, result, set, overflow;
+	reg carryOut, result, set, overflow;
 	
 	wire out1, out2, out3, out4;
 	
@@ -38,6 +29,8 @@ module my1BitALUv2(in1, in2, carryIn, ainvert, binvert, op, carryOut, result);
 
 		result = 0;
 		carryOut = 0;
+		set = 0;
+		overflow = 0;
 
 		nIn1 = in1;
 		nIn2 = in2;
@@ -61,12 +54,26 @@ module my1BitALUv2(in1, in2, carryIn, ainvert, binvert, op, carryOut, result);
 			end
 			
 			2'b10: begin
+				set = out3;
 				result = out3;
 				carryOut = out4;
+				
+				// check overflow 
+				if(nIn1 == nIn2) begin //check if sign of nIn1 == sign of nIn2, since nIn1 will always be positive for ADD/SUB operations
+					if(carryIn != out4) begin // check that carryIn equals carryOut
+						overflow = 1;
+					end
+				end
+			end
+			
+			2'b11: begin
+				result = less;
 			end
 			
 			default: begin
+				set = 0;
 				result = 0;
+				carryOut = 0;
 			end
 		
 		endcase
