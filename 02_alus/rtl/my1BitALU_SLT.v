@@ -65,7 +65,6 @@ module my1BitALU_SLT
 			end
 			
 			2'b10: begin
-				set = out3;
 				result = out3;
 				
 				// check overflow 
@@ -77,6 +76,7 @@ module my1BitALU_SLT
 			end
 			
 			2'b11: begin
+				set = out3;			
 				result = less;
 			end
 			

@@ -38,7 +38,7 @@ module myNBitALUv2 #(parameter WIDTH = 32)
 	output overflow, zero;
 	output [WIDTH-1:0] result;
 	
-	wire[WIDTH:0] carry; // used to simulate chained carry between ALUs
+	wire[WIDTH-1:0] carry; // used to simulate chained carry between ALUs
 	// cannot be reg because this is being driven by the output from instantiated modules
 
 	/*
@@ -57,7 +57,7 @@ module myNBitALUv2 #(parameter WIDTH = 32)
 				.in2 (in2[i]),
 				.carryIn (carry[i]), // input gathered from carry[]				
 				.ainvert (ainvert),
-				.binvert (carry[i]),
+				.binvert (bnegate),
 				.less (i == 0 ? set : 1'b0), // conditional to set the less input of the 1st ALU to the output of the set from the MSB ALU
 				.op (op), // all ALUs can see the same op
 				.carryOut (carry[i+1]), // output written to carryIn of next ALU

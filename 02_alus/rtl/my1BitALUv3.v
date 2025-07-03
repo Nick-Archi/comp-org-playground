@@ -43,7 +43,7 @@ module my1BitALUv3
 
 	myAND And1(nIn1, nIn2, out1);
 	myOR Or1(nIn1, nIn2, out2);
-	//my1BitAdder _1BitAdder(nIn1, nIn2, binvert, out3, out4);
+	my1BitAdder _1BitAdder(nIn1, nIn2, carryIn, out3, out4);
 	
 	myINV Inv1(in1, out5);
 	myINV Inv2(in2, out6);
@@ -75,8 +75,8 @@ module my1BitALUv3
 			end
 			
 			2'b10: begin
-				//result = out3;
-				//carryOut = out4;
+				result = out3;
+				carryOut = out4;
 			end
 			
 			2'b11: begin
