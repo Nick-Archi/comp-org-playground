@@ -6,12 +6,24 @@
 *
 */
 
-module my1BitALU_SLT(in1, in2, carryIn, ainvert, binvert, less, op, carryOut, result, set, overflow);
+module my1BitALU_SLT
+(
+	in1, 
+	in2, 
+	carryIn, 
+	ainvert, 
+	binvert, 
+	less, 
+	op, 
+	result, 
+	set, 
+	overflow
+);
 
 	input in1, in2, carryIn, ainvert, binvert, less;
 	input [1:0]op;
-	output carryOut, result, set, overflow;
-	reg carryOut, result, set, overflow;
+	output result, set, overflow;
+	reg result, set, overflow;
 	
 	wire out1, out2, out3, out4;
 	
@@ -28,7 +40,6 @@ module my1BitALU_SLT(in1, in2, carryIn, ainvert, binvert, less, op, carryOut, re
 	always@(*) begin
 
 		result = 0;
-		carryOut = 0;
 		set = 0;
 		overflow = 0;
 
@@ -56,7 +67,6 @@ module my1BitALU_SLT(in1, in2, carryIn, ainvert, binvert, less, op, carryOut, re
 			2'b10: begin
 				set = out3;
 				result = out3;
-				carryOut = out4;
 				
 				// check overflow 
 				if(nIn1 == nIn2) begin //check if sign of nIn1 == sign of nIn2, since nIn1 will always be positive for ADD/SUB operations
@@ -73,7 +83,6 @@ module my1BitALU_SLT(in1, in2, carryIn, ainvert, binvert, less, op, carryOut, re
 			default: begin
 				set = 0;
 				result = 0;
-				carryOut = 0;
 			end
 		
 		endcase

@@ -10,7 +10,7 @@ module tb_my1BitALU_SLT();
 
 	reg in1, in2, carryIn, ainvert, binvert, less;
 	reg [1:0]op;
-	wire carryOut, result, set, overflow;
+	wire result, set, overflow;
 
 	my1BitALU_SLT UUT
 	(
@@ -21,7 +21,6 @@ module tb_my1BitALU_SLT();
 		.binvert (binvert), 
 		.less (less), 
 		.op (op), 
-		.carryOut (carryOut), 
 		.result (result), 
 		.set (set), 
 		.overflow (overflow)
@@ -50,36 +49,36 @@ module tb_my1BitALU_SLT();
 		
 		/* Test ADD functionality */
 		#5 in1 = 0; in2 = 0; carryIn = 0; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 0) `assert(carryOut, 0) `assert(overflow, 0)
+		#5 `assert(result, 0) `assert(overflow, 0)
 		#5 in1 = 0; in2 = 1; carryIn = 0; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 1) `assert(carryOut, 0) `assert(overflow, 0)
+		#5 `assert(result, 1) `assert(overflow, 0)
 		#5 in1 = 1; in2 = 0; carryIn = 0; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 1) `assert(carryOut, 0) `assert(overflow, 0)
+		#5 `assert(result, 1) `assert(overflow, 0)
 		// (-)in1 + (-)in2 giving overflow, ex) 1001 + 1001 (-7) + (-7)
 		#5 in1 = 1; in2 = 1; carryIn = 0; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 0) `assert(carryOut, 1) `assert(overflow, 1)
+		#5 `assert(result, 0) `assert(overflow, 1)
 		
 		/* Test ADD & overflow functionality */
 		#5 in1 = 0; in2 = 0; carryIn = 1; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 1) `assert(carryOut, 0) `assert(overflow, 1)
+		#5 `assert(result, 1) `assert(overflow, 1)
 		#5 in1 = 0; in2 = 1; carryIn = 1; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 0) `assert(carryOut, 1) `assert(overflow, 0)
+		#5 `assert(result, 0) `assert(overflow, 0)
 		#5 in1 = 1; in2 = 0; carryIn = 1; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 0) `assert(carryOut, 1) `assert(overflow, 0)
+		#5 `assert(result, 0) `assert(overflow, 0)
 		#5 in1 = 1; in2 = 1; carryIn = 1; ainvert = 0; binvert = 0; less = 0; op = 2;
-		#5 `assert(result, 1) `assert(carryOut, 1) `assert(overflow, 0)
+		#5 `assert(result, 1) `assert(overflow, 0)
 		
 		/* Test SUB & overflow functionality */
 		#5 in1 = 0; in2 = 0; carryIn = 1; ainvert = 0; binvert = 1; less = 0; op = 2;
-		#5 `assert(result, 0) `assert(carryOut, 1) `assert(overflow, 0)
+		#5 `assert(result, 0) `assert(overflow, 0)
 		// (+)in1 - (-)in2, ex) 7 - (-)7
 		#5 in1 = 0; in2 = 1; carryIn = 1; ainvert = 0; binvert = 1; less = 0; op = 2;
-		#5 `assert(result, 1) `assert(carryOut, 0) `assert(overflow, 1)
+		#5 `assert(result, 1) `assert(overflow, 1)
 		#5 in1 = 1; in2 = 0; carryIn = 1; ainvert = 0; binvert = 1; less = 0; op = 2;
-		#5 `assert(result, 1) `assert(carryOut, 1) `assert(overflow, 0)
+		#5 `assert(result, 1) `assert(overflow, 0)
 		// (-)in1 - (-)in2
 		#5 in1 = 1; in2 = 1; carryIn = 1; ainvert = 0; binvert = 1; less = 0; op = 2;
-		#5 `assert(result, 0) `assert(carryOut, 1)	`assert(overflow, 0)
+		#5 `assert(result, 0)	`assert(overflow, 0)
 		
 	end
 
