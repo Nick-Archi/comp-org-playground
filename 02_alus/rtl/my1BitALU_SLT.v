@@ -76,7 +76,7 @@ module my1BitALU_SLT
 			end
 			
 			2'b11: begin
-				set = out3;			
+				set = out3;
 				result = less;
 			end
 			

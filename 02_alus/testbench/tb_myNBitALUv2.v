@@ -78,11 +78,17 @@ module tb_myNBitALUv2 #(parameter WIDTH = 32)();
 	#1 `assert(result, 32'h00000000) `assert(overflow, 0) `assert(zero, 1)
 	#5 in1 = 32'hFFFFFFFF; in2 = 32'h00000001; ainvert = 0; bnegate = 1; op = 2'b10;
 	#1 `assert(result, 32'hFFFFFFFE) `assert(overflow, 0) `assert(zero, 0)
+	#5 in1 = 32'h00000001; in2 = 32'h00000002; ainvert = 0; bnegate = 1; op = 2'b10;
+	#1 `assert(result, 32'hFFFFFFFF) `assert(overflow, 0) `assert(zero, 0)	
 	
 	// Special Test of already 2's complemented number of A with B
 	#5 in1 = 32'h80000000; in2 = 32'h00000001; ainvert = 0; bnegate = 1; op = 2'b10;
 	#1 `assert(result, 32'h7FFFFFFF) `assert(overflow, 1) `assert(zero, 0)
 
+	// SLT testing
+	#5 in1 = 32'h00000000; in2 = 32'h00000000; ainvert = 0; bnegate = 1; op = 2'b11;
+	#1 `assert(result, 32'h00000000) `assert(overflow, 0) `assert(zero, 1)
+	
 	end
 
 endmodule

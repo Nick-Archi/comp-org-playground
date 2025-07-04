@@ -81,6 +81,7 @@ module my1BitALUv3
 			
 			2'b11: begin
 				result = less;
+				carryOut = out4;
 			end
 			
 			default: begin
