@@ -88,7 +88,17 @@ module tb_myNBitALUv2 #(parameter WIDTH = 32)();
 	// SLT testing
 	#5 in1 = 32'h00000000; in2 = 32'h00000000; ainvert = 0; bnegate = 1; op = 2'b11;
 	#1 `assert(result, 32'h00000000) `assert(overflow, 0) `assert(zero, 1)
-	
+	#5 in1 = 32'h00000001; in2 = 32'h00000000; ainvert = 0; bnegate = 1; op = 2'b11;
+	#1 `assert(result, 32'h00000000) `assert(overflow, 0) `assert(zero, 1)
+	#5 in1 = 32'h0FFFFFFF; in2 = 32'h00000001; ainvert = 0; bnegate = 1; op = 2'b11;
+	#1 `assert(result, 32'h00000000) `assert(overflow, 0) `assert(zero, 1)
+	#5 in1 = 32'h00FFFFFF; in2 = 32'h0F000000; ainvert = 0; bnegate = 1; op = 2'b11;
+	#1 `assert(result, 32'h00000001) `assert(overflow, 0) `assert(zero, 0)
+	#5 in1 = 32'h00000001; in2 = 32'h00000002; ainvert = 0; bnegate = 1; op = 2'b11;
+	#1 `assert(result, 32'h00000001) `assert(overflow, 0) `assert(zero, 0)
+	#5 in1 = 32'h00000000; in2 = 32'h00000001; ainvert = 0; bnegate = 1; op = 2'b11;
+	#1 `assert(result, 32'h00000001) `assert(overflow, 0) `assert(zero, 0)
+		
 	end
 
 endmodule
