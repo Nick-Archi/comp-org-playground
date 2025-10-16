@@ -11,8 +11,9 @@
 * ainvert, 1 bit set to invert the value of 1st input (in1)
 * bnegate, 1 bit set to invert the value of 2nd input (in2) and also act as the CarryIn
 * op, 2 bit value to indicate operation to perform
-* carryOut, 1 bit to indicate carryOut after operations
 * result, N bit output
+* overflow, bit to determine if operation overfloweed
+* zero, bit that detects if result is equal to zero (1) or not (0)
 *
 * op: 0 (and), 1 (or), 2 (addition, subtraction), 3 (less), else (result = 0)
 * to perform subtraction, invert2 needs to be set, and carryIn = 1 so it would be, in1 + (~in2 + 1) (two's complement)
